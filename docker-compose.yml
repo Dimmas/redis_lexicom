@@ -1,0 +1,28 @@
+---
+version: "3.9"
+
+services:
+  lexicom-backend:
+    image: lexicom_backend
+    container_name: lexicom_backend
+    hostname: lexicom_backend
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    hostname: redis
+    command: redis-server
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: 'bridge'
