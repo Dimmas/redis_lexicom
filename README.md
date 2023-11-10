@@ -45,6 +45,7 @@ SELECT tables_create();
 
 # Решение 1:
 Создадим представление соединения таблиц full_names и short_names
+```
 CREATE VIEW sh_names AS select full_names.status, full_names.name from full_names join short_names on position(short_names.name || '.' in full_names.name) <> 0
 AND short_names.status = 1;
 
@@ -55,9 +56,12 @@ ON UPDATE TO sh_names DO INSTEAD
     WHERE full_names.name=old.name;
 )
 
+```
 Применим изменение статуса
+```
 UPDATE sh_names SET status = 1;
 COMMIT;
+```
 
 
 # Решение 2:
